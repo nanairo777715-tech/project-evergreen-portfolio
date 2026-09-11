@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Evergreen Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #234a37;
+    --forest-dark: #1a3628;
+    --gold: #bf9763;
+    --gold-light: #ddc8a0;
+    --mist: #eef1e6;
+    --sage: #8fae95;
+    --moss: #5f7a5c;
+    --pine: #22301f;
+    --bg: #faf5ee;
+    --card: #fffcf7;
+    --line: #e8dcc8;
+    --text: #2e2620;
+    --text-soft: #6b5f56;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(251, 250, 245, 0.92);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 6%;
+    box-shadow: 0 2px 14px rgba(35, 74, 55, 0.08);
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-icon {
+    height: 34px;
+    width: auto;
+    display: block;
+  }
+  .logo-text {
+    font-family: "Shippori Mincho", serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    background: linear-gradient(90deg, var(--forest), var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  nav ul {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  nav a {
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding: 4px 0;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--forest); }
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 30px;
+    height: 30px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--forest);
+    border-radius: 2px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Hero */
+  .hero {
+    min-height: 90vh;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    align-items: center;
+    gap: 40px;
+    padding: 90px 6%;
+    background: var(--bg);
+  }
+  .hero-content { text-align: left; }
+  .hero-eyebrow { margin: 0; }
+  .eyebrow-label {
+    display: block;
+    margin: 0;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 8px;
+    color: var(--gold);
+  }
+  .hero-eyebrow .eyebrow-main {
+    display: block;
+    margin-top: 10px;
+    margin-left: 8px;
+    font-family: "Shippori Mincho", serif;
+    font-weight: 500;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    line-height: 1;
+    color: var(--forest);
+  }
+  .statement-group { margin: 0; }
+  .statement-group .hero-line {
+    margin: 0;
+    font-family: "Shippori Mincho", serif;
+    font-weight: 400;
+    font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+    line-height: 1.6;
+    color: var(--text-soft);
+  }
+  .statement-group .hero-line + .hero-line { margin-top: 18px; }
+  .hero-line.line-indent { margin-left: 16px; }
+  .statement-accent {
+    font-weight: 600;
+    color: var(--forest);
+  }
+  .statement-main { margin-top: 36px; }
+  .statement-sub { margin-top: 22px; }
+  .hero p.tagline {
+    margin-top: 34px;
+    margin-left: 8px;
+    font-family: "Shippori Mincho", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--gold);
+    letter-spacing: 0.3px;
+  }
+  .hero .cta-group {
+    margin-top: 44px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .hero-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 380px;
+  }
+  .hero-visual img {
+    max-width: 260px;
+    width: 100%;
+    height: auto;
+  }
+  .hero-signature {
+    margin-top: 18px;
+    text-align: center;
+    font-family: "Shippori Mincho", serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    letter-spacing: 0.5px;
+  }
+  .hero-signature span {
+    display: block;
+    margin-top: 4px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    letter-spacing: 0.3px;
+  }
+  @media (max-width: 860px) {
+    .hero {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 70px 6%;
+    }
+    .hero-content { text-align: center; }
+    .hero .cta-group { justify-content: center; }
+    .hero-visual { margin-top: 20px; }
+  }
+  .btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.4px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: linear-gradient(120deg, var(--forest), var(--forest-dark));
+    color: white;
+    box-shadow: 0 10px 24px rgba(35, 74, 55, 0.35);
+  }
+  .btn-outline {
+    background: var(--card);
+    color: var(--forest);
+    border: 1.5px solid var(--gold);
+  }
+  .btn:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(191, 151, 99, 0.4); }
+
+  section { padding: 90px 6%; }
+  .section-title {
+    text-align: center;
+    font-family: "Shippori Mincho", serif;
+    font-size: 2.1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .section-title .accent {
+    display: block;
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--text-soft);
+    margin-bottom: 50px;
+  }
+  .section-sub::after {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 2px;
+    margin: 20px auto 0;
+    background: linear-gradient(90deg, var(--gold), var(--forest));
+    border-radius: 2px;
+  }
+
+  /* About */
+  #about {
+    background: var(--card);
+    position: relative;
+    overflow: hidden;
+  }
+  .about-leaf {
+    position: absolute;
+    top: 30px;
+    right: 6%;
+    width: 200px;
+    opacity: 0.4;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .about-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+    text-align: left;
+  }
+  .about-heading {
+    margin: 22px 0 0;
+  }
+  .about-heading-line {
+    display: block;
+    font-family: "Shippori Mincho", serif;
+    font-weight: 500;
+    font-size: clamp(1.7rem, 2.8vw, 2.25rem);
+    line-height: 1.55;
+    color: var(--forest);
+  }
+  .about-para-1 { margin-top: 40px; }
+  .about-para-2 { margin-top: 22px; }
+  .about-signature {
+    margin: 40px 0 0 187px;
+    font-family: "Shippori Mincho", serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    letter-spacing: 0.5px;
+  }
+  .about-signature span {
+    display: block;
+    margin-top: 4px;
+    margin-left: -24px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    letter-spacing: 0.3px;
+  }
+  @media (max-width: 860px) {
+    .about-leaf { display: none; }
+    .about-signature { margin-left: 0; }
+  }
+
+  .services {
+    max-width: 720px;
+    margin: 50px auto 0;
+  }
+  .services-title {
+    text-align: center;
+    font-family: "Shippori Mincho", serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--forest);
+    margin-bottom: 22px;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: center;
+    gap: 14px 48px;
+  }
+  .service-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.92rem;
+  }
+  .service-item .dot {
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+  @media (max-width: 640px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Story timeline */
+  #story {
+    background: var(--card);
+    position: relative;
+    overflow: hidden;
+  }
+  .story-leaf {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.14;
+    width: 150px;
+  }
+  .story-leaf.leaf-1 {
+    top: 700px;
+    left: 2%;
+    transform: rotate(-10deg);
+  }
+  .story-leaf.leaf-2 {
+    top: 1850px;
+    right: 2%;
+    width: 170px;
+    transform: rotate(12deg) scaleX(-1);
+  }
+  .story-leaf.leaf-3 {
+    top: 190px;
+    left: 820px;
+    width: 100px;
+    transform: rotate(6deg);
+  }
+  .story-leaf.leaf-4 {
+    top: 1362px;
+    left: 450px;
+    width: 80px;
+    transform: rotate(-8deg) scaleX(-1);
+  }
+  @media (max-width: 960px) {
+    .story-leaf { display: none; }
+  }
+  .timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 60px auto 0;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--forest), var(--moss), var(--pine));
+    transform: translateX(-50%);
+    border-radius: 4px;
+  }
+  .timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 0 44px 64px;
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .timeline-item.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .timeline-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+  }
+  .timeline-item:nth-child(even) {
+    left: 50%;
+    text-align: left;
+  }
+  .timeline-dot {
+    position: absolute;
+    top: 4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    border: 4px solid var(--forest);
+    box-shadow: 0 0 0 5px var(--bg);
+    z-index: 2;
+  }
+  .timeline-item:nth-child(odd) .timeline-dot { right: -10px; }
+  .timeline-item:nth-child(even) .timeline-dot { left: -10px; }
+  .timeline-item:nth-child(6n+2) .timeline-dot { border-color: var(--gold); }
+  .timeline-item:nth-child(6n+3) .timeline-dot { border-color: var(--sage); }
+  .timeline-item:nth-child(6n+4) .timeline-dot { border-color: var(--moss); }
+  .timeline-item:nth-child(6n+5) .timeline-dot { border-color: var(--pine); }
+  .timeline-item:nth-child(6n+6) .timeline-dot { border-color: var(--gold-light); }
+  .timeline-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 26px 30px;
+    box-shadow: 0 10px 25px rgba(34, 48, 31, 0.08);
+  }
+  .timeline-card .step {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 2.5px;
+    margin-bottom: 8px;
+  }
+  .timeline-card .icon { font-size: 1.6rem; margin-bottom: 6px; display: block; }
+  .timeline-card h3 { font-family: "Shippori Mincho", serif; font-size: 1.05rem; margin-bottom: 8px; }
+  .timeline-card p { font-size: 0.88rem; color: var(--text-soft); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-item {
+      transition: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Works */
+  #works {
+    background: linear-gradient(160deg, #f3eee0, #eef1e6);
+  }
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .work-card {
+    background: var(--card);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(34, 48, 31, 0.08);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .work-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 18px 35px rgba(35, 74, 55, 0.16);
+  }
+  .work-thumb {
+    height: 160px;
+    background-color: var(--mist);
+    background-size: cover;
+    background-position: center;
+  }
+  .work-body { padding: 22px; }
+  .work-body .tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--forest);
+    background: rgba(191, 151, 99, 0.16);
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    margin-right: 6px;
+  }
+  .work-body .tag.status {
+    color: var(--text-soft);
+    background: rgba(139, 115, 145, 0.14);
+    font-weight: 700;
+  }
+  .work-body h3 { font-family: "Shippori Mincho", serif; font-size: 1.1rem; margin-bottom: 6px; }
+  .work-body p { font-size: 0.88rem; color: var(--text-soft); }
+
+  /* Booking / Contact form for 制作依頼 */
+  #booking {
+    background: var(--card);
+  }
+  .form-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, #f4efe2, #eef2e7);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 44px;
+    box-shadow: 0 15px 40px rgba(35, 74, 55, 0.12);
+  }
+  .form-row { margin-bottom: 20px; }
+  .form-row label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+  }
+  .form-row input,
+  .form-row select,
+  .form-row textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 14px;
+    border: 2px solid var(--line);
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: white;
+    transition: border 0.2s;
+  }
+  .form-row input:focus,
+  .form-row select:focus,
+  .form-row textarea:focus {
+    outline: none;
+    border-color: var(--forest);
+  }
+  .form-row textarea { resize: vertical; min-height: 110px; }
+  .form-submit {
+    width: 100%;
+    margin-top: 6px;
+    text-align: center;
+  }
+  .form-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    margin-top: 16px;
+  }
+  #form-message {
+    display: none;
+    text-align: center;
+    font-weight: 800;
+    color: #2fae7e;
+    background: #e6fbf2;
+    padding: 14px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+  }
+
+  /* SNS */
+  #sns {
+    background: linear-gradient(135deg, #f2ede0, #e9eee3);
+    text-align: center;
+  }
+  .sns-grid {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .sns-item {
+    width: 170px;
+    padding: 28px 18px;
+    background: var(--card);
+    border-radius: 18px;
+    border: 1.5px solid transparent;
+    box-shadow: 0 8px 20px rgba(34, 48, 31, 0.08);
+    font-weight: 700;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .sns-item:hover { transform: translateY(-6px); box-shadow: 0 14px 28px rgba(34, 48, 31, 0.14); }
+  .sns-item .icon { font-size: 2rem; display: block; margin-bottom: 12px; }
+  .sns-item .label { display: block; }
+  .sns-item .desc {
+    display: block;
+    margin-top: 8px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 400;
+    font-size: 0.76rem;
+    line-height: 1.6;
+    color: var(--text-soft);
+  }
+  .sns-item.ig .icon { color: #d6249f; }
+  .sns-item.ig.primary {
+    width: 190px;
+    padding: 34px 22px;
+    border-color: var(--gold);
+    box-shadow: 0 10px 26px rgba(191, 151, 99, 0.18);
+  }
+  .sns-item.gh .icon { color: #333; }
+
+  footer {
+    text-align: center;
+    padding: 34px 20px;
+    background: var(--bg);
+    color: var(--text-soft);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--line);
+  }
+
+  /* SVG icons */
+  .timeline-card .icon svg { width: 30px; height: 30px; }
+  .sns-item .icon svg { width: 34px; height: 34px; display: block; margin: 0 auto; }
+
+  @media (max-width: 640px) {
+    .logo-icon { height: 26px; }
+    .logo-text { font-size: 1.05rem; }
+    .nav-toggle { display: flex; }
+    nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 12px 20px rgba(35, 74, 55, 0.1);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+    }
+    nav.open { max-height: 320px; }
+    nav ul { flex-direction: column; gap: 0; padding: 6px 6% 14px; }
+    nav ul li { border-top: 1px solid var(--line); }
+    nav ul li:first-child { border-top: none; }
+    nav a { display: block; padding: 14px 4px; font-size: 0.92rem; }
+    section { padding: 60px 5%; }
+    .form-wrap { padding: 28px 22px; }
+    .sns-grid { gap: 18px; }
+    .sns-item, .sns-item.ig.primary { width: 240px; }
+
+    .timeline::before { left: 20px; }
+    .timeline-item,
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+      width: 100%;
+      left: 0;
+      text-align: left;
+      padding: 0 0 44px 50px;
+    }
+    .timeline-item:nth-child(odd) .timeline-dot,
+    .timeline-item:nth-child(even) .timeline-dot {
+      left: 9px;
+      right: auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="images/icon_only.png" alt="" class="logo-icon">
+    <span class="logo-text">Project Evergreen</span>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <nav>
+    <ul id="navMenu">
+      <li><a href="#about">About</a></li>
+      <li><a href="#story">Story</a></li>
+      <li><a href="#works">Works</a></li>
+      <li><a href="#booking">依頼する</a></li>
+      <li><a href="#sns">SNS</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow"><span class="eyebrow-label">PROJECT</span><span class="eyebrow-main">Evergreen</span></p>
+    <div class="statement-group statement-main">
+      <p class="hero-line">経験・知識・感性を結び、</p>
+      <p class="hero-line line-indent statement-accent">長く育つ価値へ。</p>
+    </div>
+    <div class="statement-group statement-sub">
+      <p class="hero-line">美容サロンや小さな事業の想いを、</p>
+      <p class="hero-line line-indent">AIとデザインの力で、伝わる形へ。</p>
+    </div>
+    <p class="tagline">Grow with experience. Create with heart.</p>
+    <div class="cta-group">
+      <a href="#about" class="btn btn-primary">できることを見る</a>
+      <a href="#works" class="btn btn-outline">制作実績を見る</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <img src="images/story_leaf_left.png" alt="">
+    <p class="hero-signature">Naoko Iso<span>Founder / AI × Design Marketer</span></p>
+  </div>
+</section>
+
+<section id="about">
+  <img class="about-leaf" src="images/story_leaf_right.png" alt="">
+  <div class="about-inner">
+    <p class="eyebrow-label">ABOUT ME</p>
+    <p class="about-heading">
+      <span class="about-heading-line">人と仕事に、</span>
+      <span class="about-heading-line line-indent">やさしく向き合う。</span>
+    </p>
+    <div class="statement-group about-para-1">
+      <p class="hero-line">ネイリストとして10年以上、</p>
+      <p class="hero-line line-indent">お客様一人ひとりと向き合う</p>
+      <p class="hero-line">現場に立ってきました。</p>
+    </div>
+    <div class="statement-group about-para-2">
+      <p class="hero-line">技術だけではなく、</p>
+      <p class="hero-line line-indent">想いや魅力を「伝えること」の</p>
+      <p class="hero-line">大切さを知ったことが、</p>
+      <p class="hero-line line-indent">Project Evergreenへと</p>
+      <p class="hero-line">つながっています。</p>
+    </div>
+    <p class="about-signature">Naoko Iso<span>Project Evergreen 代表</span></p>
+  </div>
+
+  <div class="services">
+    <p class="services-title">サポートできること</p>
+    <div class="services-grid">
+      <div class="service-item"><span class="dot"></span>AI活用サポート</div>
+      <div class="service-item"><span class="dot"></span>HP／LP構成サポート</div>
+      <div class="service-item"><span class="dot"></span>Canvaデザイン制作</div>
+      <div class="service-item"><span class="dot"></span>公式LINE導線整理</div>
+      <div class="service-item"><span class="dot"></span>Instagram投稿・カルーセル制作</div>
+      <div class="service-item"><span class="dot"></span>予約・お客様導線の改善</div>
+      <div class="service-item"><span class="dot"></span>名刺／メニュー表／案内資料制作</div>
+      <div class="service-item"><span class="dot"></span>美容サロン業務の見える化</div>
+      <div class="service-item"><span class="dot"></span>ブログ・文章作成サポート</div>
+      <div class="service-item"><span class="dot"></span>小さな事業のブランドづくり</div>
+    </div>
+  </div>
+</section>
+
+<section id="story">
+  <img class="story-leaf leaf-1" src="images/story_leaf_left.png" alt="">
+  <img class="story-leaf leaf-2" src="images/story_leaf_right.png" alt="">
+  <img class="story-leaf leaf-3" src="images/story_leaf_right.png" alt="">
+  <img class="story-leaf leaf-4" src="images/story_leaf_left.png" alt="">
+  <p class="section-title"><span class="accent">MY STORY</span>ここにたどり着くまで</p>
+  <p class="section-sub">きっかけは、ほんの小さな出来事でした。</p>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <span class="step">STEP 01</span>
+        <span class="icon" style="color: var(--forest);">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2c.6 3.4 1.7 5.7 3.3 7.3S19 12 22 12c-3.4.6-5.7 1.7-7.3 3.3S12 19 12 22c-.6-3.4-1.7-5.7-3.3-7.3S5 12 2 12c3.4-.6 5.7-1.7 7.3-3.3S12 5 12 2z"/>
+          </svg>
+        </span>
+        <h3>指先の世界に、心を奪われて</h3>
+        <p>きっかけは、ラジオで流れた一枚のハガキ。夫の「眉が薄くてかわいそう」のひと言で訪ねた先生が、たまたまネイリストでもあり、ネイルを教わったのが始まりです。</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <span class="step">STEP 02</span>
+        <span class="icon" style="color: var(--gold);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="3" width="16" height="18" rx="2"/>
+            <path d="M8 8h8"/>
+            <path d="M8 12h5"/>
+            <path d="M9 16.5l2 2 4-4.5"/>
+          </svg>
+        </span>
+        <h3>夢への確かな一歩</h3>
+        <p>猛勉強の末、ネイリストの資格試験に合格。プロとして働くための第一歩を踏み出しました。</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <span class="step">STEP 03</span>
+        <span class="icon" style="color: var(--sage);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="8" width="18" height="11" rx="2"/>
+            <path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+            <path d="M3 13h18"/>
+          </svg>
+        </span>
+        <h3>現場で磨いた10年</h3>
+        <p>ネイリスト検定1級に合格後、子育てのかたわらアルバイトを経て、大手サロン「ネイルズユニーク」へ入社。得意なアクリルスカルプチュアでコンテストにも挑戦し、上には上がいる世界を知りながら、かけがえのない学びを得た10年間でした。</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <span class="step">STEP 04</span>
+        <span class="icon" style="color: var(--moss);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 21V8l6-4 6 4v13"/>
+            <path d="M16 21v-9l4 2v7"/>
+            <path d="M9 12h2M9 16h2"/>
+          </svg>
+        </span>
+        <h3>銀座で、ひとりに向き合う日々</h3>
+        <p>子どもの受験期と異動が重なり、家族を優先して退職。紹介で銀座三丁目の「ボネール」へ。まつ毛も手がける自由な雰囲気の中、素敵なお客様との出会いを通じて、人見知りだった私も少しずつ心を開けるようになりました。</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <span class="step">STEP 05</span>
+        <span class="icon" style="color: var(--pine);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 21V4.5c0-.6.4-1 1-1h9c.6 0 1 .4 1 1V21"/>
+            <path d="M4 21h16"/>
+            <circle cx="13.5" cy="12" r="0.8" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <h3>自分の色を生きる決意</h3>
+        <p>その後移った先のサロンが、本社移転にともない突然閉店に。独立するつもりはなかったものの、お客様に励まされ、わずか1ヶ月で今の京橋の場所へ。家具もろくにない中、「みかん箱ですけど」と笑い合った日々——感謝しかない、そんな独立でした。</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <span class="step">STEP 06</span>
+        <span class="icon" style="color: var(--gold-light);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18h6"/>
+            <path d="M10 21h4"/>
+            <path d="M12 3a6 6 0 0 0-3.6 10.8c.5.4.9 1 1 1.7l.1.5h5l.1-.5c.1-.7.5-1.3 1-1.7A6 6 0 0 0 12 3z"/>
+          </svg>
+        </span>
+        <h3>気づいた「伝える力」の大切さ</h3>
+        <p>独立して一人サロンを運営する中で気づいたのは、技術だけでなく、SNSでの発信や広告など「知ってもらう力」の大切さでした。</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <span class="step">STEP 07</span>
+        <span class="icon" style="color: var(--forest);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 2h6"/>
+            <path d="M10 2v3.5L7.5 8A3 3 0 0 0 6 10.5V20a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-9.5A3 3 0 0 0 16.5 8L14 5.5V2"/>
+            <path d="M6 13h12"/>
+          </svg>
+        </span>
+        <h3>そして、新しい章へ</h3>
+        <p>その気づきをきっかけに、AIを活用したSNS発信や広告制作など、幅広いスキルで同じ悩みを持つ方の力になりたいと考え、「Project Evergreen」としての活動を始めました。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="works">
+  <p class="section-title"><span class="accent">WORKS</span>作品・実績</p>
+  <p class="section-sub">想いを形にするために、企画・設計から制作まで取り組んだ事例をご紹介します</p>
+  <div class="works-grid">
+    <div class="work-card">
+      <div class="work-thumb" style="background-image: url('images/producenail_work.png');"></div>
+      <div class="work-body">
+        <span class="tag">WEB DESIGN</span>
+        <h3>プライベートネイルサロンの公式サイト</h3>
+        <p>コンセプト設計からデザイン・予約導線までを一貫して制作</p>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="work-thumb" style="background-image: url('images/evergreen_mockup.png');"></div>
+      <div class="work-body">
+        <span class="tag">MVP DEVELOPMENT</span><span class="tag status">開発中</span>
+        <h3>美容サロン向けSaaS「Evergreen Growth Hub」</h3>
+        <p>AIによる投稿文・ハッシュタグ自動生成機能を含む、UI設計と実装を担当</p>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="work-thumb" style="background-image: url('images/portfolio_showcase.jpg');"></div>
+      <div class="work-body">
+        <span class="tag">BRAND DESIGN</span>
+        <h3>ブランドサイトデザイン<br>― ポートフォリオサイト ―</h3>
+        <p>コンセプト設計から配色・タイポグラフィまで、世界観を一貫して設計・制作</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="booking">
+  <p class="section-title"><span class="accent">CONTACT</span>まずは、お話を聞かせてください</p>
+  <p class="section-sub">まだ内容がまとまっていなくても大丈夫です。<br>「こんなことできる？」という段階から、お気軽にご相談ください。</p>
+  <div class="form-wrap">
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSdh5hzkocgH7EvfsdxazV9DfcsQOTTW21JKkiMVyrxMMGdt0g/viewform?embedded=true"
+      width="100%"
+      height="900"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+      style="border-radius: 16px;"
+    >読み込んでいます…</iframe>
+  </div>
+</section>
+
+<section id="sns">
+  <p class="section-title"><span class="accent">FOLLOW ME</span>もっと知っていただくために</p>
+  <p class="section-sub"></p>
+  <div class="sns-grid">
+    <a href="https://www.instagram.com/projectevergreen.jp/" target="_blank" rel="noopener noreferrer" class="sns-item ig primary">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+      </span>
+      <span class="label">Instagram</span>
+      <span class="desc">制作のこと、AI活用、<br>Project Evergreenの今を発信</span>
+    </a>
+    <a href="https://github.com/nanairo777715-tech" target="_blank" rel="noopener noreferrer" class="sns-item gh">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.2c0 4.5 2.9 8.3 6.8 9.6.5.1.7-.2.7-.5v-1.9c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.5-1.4.1-2.9 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.5.2 2.6.1 2.9.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7 1 .7 2v3c0 .3.2.6.7.5 3.9-1.3 6.8-5.1 6.8-9.6C22 6.6 17.5 2 12 2z"/></svg>
+      </span>
+      <span class="label">GitHub</span>
+      <span class="desc">制作・開発の記録</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Project Evergreen. All rights reserved.
+</footer>
+
+<script>
+  const navToggle = document.getElementById("navToggle");
+  const navMenu = document.getElementById("navMenu");
+  if (navToggle && navMenu) {
+    const nav = navMenu.closest("nav");
+    navToggle.addEventListener("click", () => {
+      const isOpen = navToggle.classList.toggle("open");
+      nav.classList.toggle("open", isOpen);
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+    navMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navToggle.classList.remove("open");
+        nav.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  const timelineItems = document.querySelectorAll(".timeline-item");
+  if (timelineItems.length && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    timelineItems.forEach((item) => observer.observe(item));
+  } else {
+    timelineItems.forEach((item) => item.classList.add("in-view"));
+  }
+</script>
+</body>
+</html>

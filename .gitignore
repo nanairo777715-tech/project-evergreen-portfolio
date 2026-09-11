@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# 内部作業メモ(公開サイトの表示には不要、公開リポジトリに含めない)
+CLAUDE.md
+PROGRESS.md
+*handoff*.md
+
+# ローカル保存用の未加工素材(サイトからは未参照、公開リポジトリに含めない)
+images/story_leaf_material_original.png
